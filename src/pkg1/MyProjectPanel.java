@@ -36,27 +36,32 @@ public class MyProjectPanel extends JPanel {
   Vector <VectorCircles> vecCircles= new Vector<>();
   Vector <VectorRectangles> vecRects= new Vector<>();
   Vector <VectorCircles> vecBrush= new Vector<>();
-    Vector <VectorCircles> vecEraser= new Vector<>();
+  Vector <VectorCircles> vecEraser= new Vector<>();
 
   int index ,indexC , indexR ,indexFree ,indexErase; 
+  
   int flag;
   int filled;
   int dotted;
   
-  JButton line;
+   JButton line;
    JButton circle;
    JButton rect;
+   JButton black;
    JButton red;
    JButton green;
    JButton blue;
    JButton clearAll;
    JButton brush;
    JButton eraser;
-    JCheckBox checkFill;
-    JCheckBox checkDotted;
+   
+   JCheckBox checkFill;
+   JCheckBox checkDotted;
+   
    Color color= new Color(0,0,0);
    Color bgcolor= new Color(0,0,0);
-  public MyProjectPanel() {
+ 
+   public MyProjectPanel() {
         x1=0;
         y1=0;
         x2=0;
@@ -66,13 +71,14 @@ public class MyProjectPanel extends JPanel {
         indexR=0;
         indexFree=0;
         indexErase=0;
+        flag=0;
         filled=0;
         dotted=0;
         bgcolor=Color.PINK;
         this.setBackground(bgcolor);
         this.setFocusable(true);
        
-        flag=0; 
+        
         System.out.println("default consructor ");
        /***********************************/
        checkFill=new JCheckBox("Filled");
@@ -121,7 +127,7 @@ public class MyProjectPanel extends JPanel {
                 flag=2;
                 
                  System.out.println("buton pressed ");
-                       System.out.println("flag "+flag);
+                       System.out.println("flag " +flag);
 
            // updateUI();
             }
@@ -182,7 +188,7 @@ public class MyProjectPanel extends JPanel {
         indexC=0;
         indexR=0;
         indexFree=0;
-                indexErase=0;
+        indexErase=0;
 
                   vecLines.clear();
                   System.out.println("clearLines ");
@@ -198,10 +204,25 @@ public class MyProjectPanel extends JPanel {
             }
             
         });
+        
+        
      /*************************************/
      
      // colors button
      /******************************/
+     /******************************/
+        black =new JButton ("black");
+        black.addActionListener(new ActionListener (){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                color=Color.BLACK;
+                
+                 System.out.println("black pressed ");
+                      
+            }
+            
+        });
+      /********************************/
         red =new JButton ("red");
         red.addActionListener(new ActionListener (){
             @Override
@@ -237,12 +258,8 @@ green =new JButton ("green");
             }
             
         });
-      /********************************/
-     
-     
-     
-     
-     System.out.println("flag "+flag);
+      /********************************/ 
+     System.out.println("flag shape "+flag);
 
         this.addMouseListener( new MouseListener(){
             @Override
@@ -276,7 +293,7 @@ green =new JButton ("green");
                   y1=e.getY();
                    width=5;
                     hight=5;
-                    filled=1;
+                   //filled=0;
                   vecBrush.add(indexFree,new VectorCircles(x1,y1 ,width,hight,color,filled,dotted));
                   indexFree++;
                    updateUI();
@@ -287,8 +304,8 @@ green =new JButton ("green");
                   y1=e.getY();
                    width=8;
                     hight=8;
-                    filled=1;
-                 vecEraser.add(indexErase,new VectorCircles(x1,y1 ,width,hight,color,filled,dotted));
+                  //  filled=1;
+                 vecEraser.add(indexErase,new VectorCircles(x1,y1 ,width,hight,bgcolor,filled,dotted));
                   indexErase++;
                    updateUI();
                   }
@@ -391,22 +408,22 @@ green =new JButton ("green");
                   y1=e.getY();
                     width=5;
                     hight=5;
-                    filled=1;
-                    dotted=0;
+//                    filled=0;
+//                    dotted=0;
                   vecBrush.add(indexFree,new VectorCircles(x1,y1 ,width,hight,color,filled,dotted));
                               indexFree++;       
 
                     updateUI();
                  }
-               else if (flag==5) //brush
+               else if (flag==5) //Eraser
                  {
                    x1=e.getX();
                   y1=e.getY();
                     width=8;
                     hight=8;
-                    filled=1;
-                    dotted=0;
-                  vecEraser.add(indexErase,new VectorCircles(x1,y1 ,width,hight,color,filled,dotted));
+//                    filled=0;
+//                    dotted=0;
+                  vecEraser.add(indexErase,new VectorCircles(x1,y1 ,width,hight,bgcolor,filled,dotted));
                               indexErase++;       
 
                     updateUI();
@@ -428,11 +445,13 @@ green =new JButton ("green");
        this.add(circle);
        this.add(rect);
        this.add(brush);
-this.add(red);
-this.add(green);
-this.add(blue);
-this.add(eraser);
-this.add(clearAll);
+
+       this.add(black);
+       this.add(red);
+       this.add(green);
+       this.add(blue);
+       this.add(eraser);
+       this.add(clearAll);
 
     
     }
@@ -496,7 +515,7 @@ this.add(clearAll);
      }
          
     /***************************************/
-        /************************************************************************************/
+   /************************************************************************************/
   /*************************************************************************************/ 
     
          @Override
@@ -509,19 +528,19 @@ this.add(clearAll);
              g2d.setStroke(dashed);
              
              
-        
+
  if (flag==1) // line
  {
        g.setColor(color);
-  if (dotted==0)
+    if (dotted==0)
        g.drawLine(x1, y1, x2, y2); 
-  else if (dotted==1) g2d.drawLine(x1, y1, x2, y2); 
+    else if (dotted==1) g2d.drawLine(x1, y1, x2, y2); 
  }
  /************/
  else if (flag==2) //circle
  {  g.setColor(color);
   
-     if (filled==0)// draw
+     if (filled==0)// draw not filled 
      { if (dotted==1)   g2d.drawOval(x1, y1, width, hight);   
          else g.drawOval(x1, y1, width, hight);}
      else if(filled==1) g.fillOval(x1, y1, width, hight); //fill 
@@ -552,7 +571,7 @@ this.add(clearAll);
  
         for (int i=0; i<index ; i++)// lines
       {  g.setColor(vecLines.get(i).color);
-        if (vecLines.get(i).dotted==0)
+        if (vecLines.get(i).dotted==0) // not dotted
            g.drawLine(vecLines.get(i).x1, vecLines.get(i).y1, vecLines.get(i).x2, vecLines.get(i).y2);
             else if (vecLines.get(i).dotted==1)
             { g2d.setColor(vecLines.get(i).color);
@@ -563,7 +582,7 @@ this.add(clearAll);
   for (int i=0; i<indexC ; i++) //circles 
       {
             g.setColor(vecCircles.get(i).color);
-            if (vecCircles.get(i).filled==0){// draw
+            if (vecCircles.get(i).filled==0){// draw not filled 
                 if (vecCircles.get(i).dotted==1)
            g2d.drawOval(vecCircles.get(i).x1, vecCircles.get(i).y1, vecCircles.get(i).width, vecCircles.get(i).hight);
                 else g.drawOval(vecCircles.get(i).x1, vecCircles.get(i).y1, vecCircles.get(i).width, vecCircles.get(i).hight); }

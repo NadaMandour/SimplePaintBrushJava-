@@ -14,11 +14,10 @@ import javax.swing.JFrame;
 public class MainProject {
       public static void main(String[] args) {
         JFrame frame= new JFrame();
-        frame.setTitle("Draw Linesss" );
+        frame.setTitle("Paint Brush" );
       MyProjectPanel panel =new MyProjectPanel();
         frame.setContentPane(panel);
-
-        frame.setSize(800,600);
+        frame.setSize(900,600);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }  
