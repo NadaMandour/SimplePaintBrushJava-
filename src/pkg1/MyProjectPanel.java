@@ -584,7 +584,8 @@ green =new JButton ("green");
             g.setColor(vecCircles.get(i).color);
             if (vecCircles.get(i).filled==0){// draw not filled 
                 if (vecCircles.get(i).dotted==1)
-           g2d.drawOval(vecCircles.get(i).x1, vecCircles.get(i).y1, vecCircles.get(i).width, vecCircles.get(i).hight);
+                {g2d.setColor(vecCircles.get(i).color);
+                    g2d.drawOval(vecCircles.get(i).x1, vecCircles.get(i).y1, vecCircles.get(i).width, vecCircles.get(i).hight);}
                 else g.drawOval(vecCircles.get(i).x1, vecCircles.get(i).y1, vecCircles.get(i).width, vecCircles.get(i).hight); }
            else if (vecCircles.get(i).filled==1) g.fillOval(vecCircles.get(i).x1, vecCircles.get(i).y1, vecCircles.get(i).width, vecCircles.get(i).hight);
       }
@@ -593,8 +594,10 @@ green =new JButton ("green");
       {
             g.setColor(vecRects.get(i).color);
              if (vecRects.get(i).filled==0)// draw
-             { if (vecRects.get(i).dotted==1) g2d.drawRect(vecRects.get(i).x1, vecRects.get(i).y1, vecRects.get(i).width, vecRects.get(i).hight);
-                else g.drawRect(vecRects.get(i).x1, vecRects.get(i).y1, vecRects.get(i).width, vecRects.get(i).hight);}
+             { if (vecRects.get(i).dotted==1) {
+                 g2d.setColor(vecRects.get(i).color);
+                 g2d.drawRect(vecRects.get(i).x1, vecRects.get(i).y1, vecRects.get(i).width, vecRects.get(i).hight);}
+             else g.drawRect(vecRects.get(i).x1, vecRects.get(i).y1, vecRects.get(i).width, vecRects.get(i).hight);}
             else if (vecRects.get(i).filled==1) g.fillRect(vecRects.get(i).x1, vecRects.get(i).y1, vecRects.get(i).width, vecRects.get(i).hight);
       }
  
